@@ -82,12 +82,12 @@ function fallbackColor(color, fallbackColor) {
 }
 
 // TODO
-function request(data, headers) {
+function request(username, headers) {
   return axios({
-    url: `https://leetcode-cn.com/api/user_submission_calendar/${usename}`,
+    url: `https://leetcode-cn.com/api/user_submission_calendar/${username}`,
     method: "GET",
-    headers,
-    data,
+    // headers,
+    // data,
   });
 }
 

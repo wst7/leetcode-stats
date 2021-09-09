@@ -3,7 +3,7 @@ import Card from "./Card"
 const { flexLayout, encodeHTML } = utils;
 
 
-const renderStatsCard = (stats = {}, options = { hide: [] }) => {
+const renderCommitCard = (stats = {}, options = { hide: [] }) => {
 
 
 
@@ -38,4 +38,4 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
   `);
 };
 
-export default renderStatsCard;
+export default renderCommitCard;

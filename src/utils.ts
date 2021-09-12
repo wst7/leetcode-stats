@@ -4,6 +4,7 @@
 // from https://github.com/anuraghazra/github-readme-stats/blob/master/src/common/utils.js
 import axios from "axios";
 import wrap from "word-wrap";
+import dayjs from "dayjs"
 
 const renderError = (message, secondaryMessage = "") => {
   return `
@@ -245,6 +246,23 @@ function measureText(str, fontSize = 10) {
 }
 const lowercaseTrim = (name) => name.toLowerCase().trim();
 
+const getDayOfSatrt = (date: Date) => {
+  return dayjs(date).startOf("day").valueOf()
+}
+
+
+
+export const getFullCalendar = (part) => {
+  const today = dayjs().startOf("day").valueOf()
+  const full: Record<string, number> = {
+    [today]: part[today] || 0
+  }
+  return part
+
+}
+
+
+
 export default {
   renderError,
   kFormatter,
@@ -263,4 +281,5 @@ export default {
   CONSTANTS,
   CustomError,
   lowercaseTrim,
+  getFullCalendar
 };

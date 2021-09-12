@@ -3,7 +3,9 @@ import Card from "./Card"
 const { flexLayout, encodeHTML } = utils;
 
 
-const renderCommitCard = (stats = {}, options = { hide: [] }) => {
+const renderCommitCard = ({
+  data, theme
+}) => {
 
 
 
@@ -27,15 +29,16 @@ const renderCommitCard = (stats = {}, options = { hide: [] }) => {
   ]
 
 
-  return card.render(`
-    <svg x="0" y="0">
-      ${flexLayout({
-        items: statItems,
-        gap: 25,
-        direction: "column",
-      }).join("")}
-    </svg> 
-  `);
+  // return card.render(`
+  //   <svg x="0" y="0">
+  //     ${flexLayout({
+  //       items: statItems,
+  //       gap: 25,
+  //       direction: "column",
+  //     }).join("")}
+  //   </svg> 
+  // `);
+  return data
 };
 
 export default renderCommitCard;

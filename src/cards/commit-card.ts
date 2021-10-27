@@ -1,44 +1,19 @@
-import utils from "../utils";
-import Card from "./Card"
-const { flexLayout, encodeHTML } = utils;
+const total = 365;
+const getDateKey = (today, diff: number): string => {
+  return (today - 86400 * diff).toString();
+};
 
+const renderCommitCard = ({ data, theme }) => {
+  const commitdata = {};
+  const today = new Date();
+  today.setHours(8, 0, 0, 0);
+  const todayStamp = today.getTime() / 1000;
+  for (let index = 0; index <= total; index++) {
+    const dateKey = getDateKey(todayStamp, index);
+    commitdata[dateKey] = data[dateKey] || 0;
+  }
 
-const renderCommitCard = ({
-  data, theme
-}) => {
-
-
-
-  const card = new Card({
-    customTitle: "custom_title",
-    width: 100,
-    height: 100,
-  });
-
-  const titleText = `
-      <text
-        x="0"
-        y="0"
-        class="header"
-        data-testid="header"
-      >test</text>
-    `;
-  
-  const statItems = [
-    titleText,titleText,titleText
-  ]
-
-
-  // return card.render(`
-  //   <svg x="0" y="0">
-  //     ${flexLayout({
-  //       items: statItems,
-  //       gap: 25,
-  //       direction: "column",
-  //     }).join("")}
-  //   </svg> 
-  // `);
-  return data
+  return commitdata;
 };
 
 export default renderCommitCard;

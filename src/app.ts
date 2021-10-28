@@ -1,6 +1,6 @@
 import express from "express";
 import fetcher from "./fetchers/commit-fetcher";
-import renderCommitCard from "./cards/commit-card";
+import Card from "./cards/commit-card";
 
 const app = express();
 const port = 3000;
@@ -12,11 +12,9 @@ app.get("/", (req, res) => {
 app.get("/api/calendar", async (req, res) => {
   const { username, theme } = req.query;
   const data = await fetcher(username as string);
+  const card = new Card(data, theme as any)
   res.send(
-    renderCommitCard({
-      theme,
-      data,
-    })
+    card.render()
   );
 });
 

@@ -1,5 +1,8 @@
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import themes from "./themes";
+import { descSort } from "../utils";
+
 dayjs.extend(weekOfYear);
 
 type Data = {
@@ -14,67 +17,61 @@ type CommitsData = {
   month: number;
   day: number; // day of week
   week: number;
+  x: number;
+  y: number;
 };
 
-enum Levels {
-  none = "#ebedf0",
-  less = "#ace6ad",
-  medium = "#69c06e",
-  height = "#539e57",
-  more = "#386c3e",
-}
-
 class Card {
-  data: Data = {};
-  commitsData: CommitsData[] = [];
-  days: number = 365;
-  theme: Themes = "light";
-  // levels = {
-  //   0: "#ebedf0",
-  //   1: "#ace6ad",
-  //   2: "#69c06e",
-  //   3: "#539e57",
-  //   4: "#386c3e",
-  // };
-  unit = 12;
+  private commitsData: CommitsData[] = [];
+  private days: number = 365;
+  private theme: Themes = "light";
+  private unit = 12;
 
   constructor(data: Data, theme: Themes) {
-    this.data = data;
-    this.setCommitsData(data);
     if (theme) {
-      this.theme = theme;
+      this.setTheme(theme);
     }
+    this.setCommitsData(data);
   }
 
   private setCommitsData(data: Data) {
     const completeData = this.getCompleteData(data);
     const stamps = Object.keys(completeData);
-    console.log(stamps.length);
-    const commitsData = stamps.map((stamp) => {
-      const date = dayjs(stamp);
+    
+    const sortStamps = descSort(stamps)
+    let x = 0
+    const commitsData = sortStamps.map((stamp, idx) => {
+
+      const date = dayjs(Number(stamp) * 1000);
+      const day = date.day()
+     
       return {
         date: date.format("YYYY-MM-DD"),
         commits: completeData[stamp],
         month: date.month() + 1,
-        day: date.day(),
+        day,
         week: date.week(),
         color: this.getColor(completeData[stamp]),
+        x: this.days - (day === 6 ? x ++ : x) - 1,
+        y: day
       };
     });
+
+    console.log(commitsData.map(_ => _.x))
     this.commitsData = commitsData;
   }
 
   private getColor(commits: number): string {
     if (commits <= 0) {
-      return Levels.none;
+      return themes[this.theme].none;
     } else if (commits <= 3) {
-      return Levels.less;
+      return themes[this.theme].less;
     } else if (commits <= 6) {
-      return Levels.medium;
+      return themes[this.theme].medium;
     } else if (commits <= 10) {
-      return Levels.height;
+      return themes[this.theme].height;
     } else {
-      return Levels.more;
+      return themes[this.theme].more;
     }
   }
 
@@ -100,19 +97,25 @@ class Card {
       .map((item) => {
         return `
           <rect
-            x=${item.week * this.unit}
-            y=${item.day * this.unit}
+            x="${(this.days - item.x - 1) * this.unit}"
+            y="${item.y * this.unit}"
             width="10"
             height="10"
-            fill=${item.color}
+            fill="${item.color}"
             rx="2"
             ry="2"
-            data-commits=${item.commits}
-            title=${`${item.commits} commits on ${item.date}`}
+            data-commits="${item.commits}"
+            title="${`${item.commits} commits on ${item.date}`}"
           ></rect>
         `;
       })
       .join("");
+  }
+  /**
+   * name
+   */
+  public setTheme(theme: Themes) {
+    this.theme = theme;
   }
 
   public render() {
@@ -122,7 +125,9 @@ class Card {
         baseProfile="full"
         width="640" height="100"
         xmlns="http://www.w3.org/2000/svg"
-        style="border:1px solid #d0d7de"
+        style="${`border:1px solid #d0d7de;background:${
+          themes[this.theme].bg
+        }`}"
       >
         <g style="text-align:center">${this.renderDays()}</g>
       </svg>

@@ -26,18 +26,20 @@ class Card {
   private days: number;
   private theme: Themes = "light";
   private unit = 12;
+  private offsetX = 8;
+  private offsetY = 8;
 
   constructor(data: Data, theme: Themes) {
     if (theme) {
       this.setTheme(theme);
     }
-    this.calcDays()
+    this.calcDays();
     this.setCommitsData(data);
   }
 
   private calcDays() {
     const day = dayjs().day();
-    this.days = 51 * 7 + day + 1
+    this.days = 51 * 7 + day + 1;
   }
 
   private setCommitsData(data: Data) {
@@ -101,8 +103,8 @@ class Card {
       .map((item) => {
         return `
           <rect
-            x="${item.x * this.unit}"
-            y="${item.y * this.unit}"
+            x="${item.x * this.unit + this.offsetX}"
+            y="${item.y * this.unit + this.offsetY}"
             width="10"
             height="10"
             fill="${item.color}"
@@ -132,7 +134,7 @@ class Card {
         xmlns="http://www.w3.org/2000/svg"
         style="${`border:1px solid #d0d7de;background:${
           themes[this.theme].bg
-        }`}"
+        }; border-radius:4px`}"
       >
         <g style="text-align:center">${this.renderDays()}</g>
       </svg>

@@ -118,9 +118,7 @@ class Card {
       .reverse()
       .join("");
   }
-  /**
-   * name
-   */
+
   public setTheme(theme: Themes) {
     this.theme = theme;
   }

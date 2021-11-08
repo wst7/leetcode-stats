@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import themes from "./themes";
-import { descSort } from "../utils";
+import { ascSort } from "../utils";
 
 dayjs.extend(weekOfYear);
 
@@ -23,7 +23,7 @@ type CommitsData = {
 
 class Card {
   private commitsData: CommitsData[] = [];
-  private days: number = 365;
+  private days: number;
   private theme: Themes = "light";
   private unit = 12;
 
@@ -31,20 +31,25 @@ class Card {
     if (theme) {
       this.setTheme(theme);
     }
+    this.calcDays()
     this.setCommitsData(data);
+  }
+
+  private calcDays() {
+    const day = dayjs().day();
+    this.days = 51 * 7 + day + 1
   }
 
   private setCommitsData(data: Data) {
     const completeData = this.getCompleteData(data);
     const stamps = Object.keys(completeData);
-    
-    const sortStamps = descSort(stamps)
-    let x = 0
-    const commitsData = sortStamps.map((stamp, idx) => {
 
+    const sortStamps = ascSort(stamps);
+    let x = 0;
+    const commitsData = sortStamps.map((stamp, idx) => {
       const date = dayjs(Number(stamp) * 1000);
-      const day = date.day()
-     
+      const day = date.day();
+
       return {
         date: date.format("YYYY-MM-DD"),
         commits: completeData[stamp],
@@ -52,12 +57,11 @@ class Card {
         day,
         week: date.week(),
         color: this.getColor(completeData[stamp]),
-        x: this.days - (day === 6 ? x ++ : x) - 1,
-        y: day
+        x: day === 6 ? x++ : x,
+        y: day,
       };
     });
 
-    console.log(commitsData.map(_ => _.x))
     this.commitsData = commitsData;
   }
 
@@ -97,7 +101,7 @@ class Card {
       .map((item) => {
         return `
           <rect
-            x="${(this.days - item.x - 1) * this.unit}"
+            x="${item.x * this.unit}"
             y="${item.y * this.unit}"
             width="10"
             height="10"
@@ -109,6 +113,7 @@ class Card {
           ></rect>
         `;
       })
+      .reverse()
       .join("");
   }
   /**

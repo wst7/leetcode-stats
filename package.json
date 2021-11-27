@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "supervisor -w dist ./dist/app.js",
-    "compile": "tsc",
+    "build": "tsc",
     "server": "tsc && pm2 dist/app.js"
   },
   "author": "wstreet",

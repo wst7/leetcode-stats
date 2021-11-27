@@ -20,8 +20,7 @@ app.get("/api/calendar", async (req, res) => {
   res.send(card.render());
 });
 
-// app.listen(port, () => {
-//   console.log(`leetcode-stats listening at http://localhost:${port}`);
-// });
 
-module.exports = app;
+app.listen(port, () => {
+  console.log(`leetcode-stats listening at http://localhost:${port}`);
+});

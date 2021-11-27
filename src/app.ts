@@ -12,10 +12,8 @@ app.get("/", (req, res) => {
 app.get("/api/calendar", async (req, res) => {
   const { username, theme } = req.query;
   const data = await fetcher(username as string);
-  const card = new Card(data, theme as any)
-  res.send(
-    card.render()
-  );
+  const card = new Card(data, theme as any);
+  res.send(card.render());
 });
 
 app.listen(port, () => {

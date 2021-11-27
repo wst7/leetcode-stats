@@ -1,15 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "./api/*",
-      "use": "@vercel/node"
+  "functions": {
+    "api/*.ts": {
+      "memory": 128,
+      "maxDuration": 30
     }
-  ],
-  "routes": [
+  },
+  "redirects": [
     {
-      "src": "/(.*)",
-      "dest": "/"
+      "source": "/",
+      "destination": "https://github.com/wstreet/leetcode-stats"
     }
   ]
 }

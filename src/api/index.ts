@@ -1,6 +1,6 @@
 import express from "express";
-import fetcher from "./fetchers/commit-fetcher";
-import Card from "./cards/commit-card";
+import fetcher from "../fetchers/commit-fetcher";
+import Card from "../cards/commit-card";
 
 const app = express();
 const port = 3000;
@@ -19,3 +19,6 @@ app.get("/api/calendar", async (req, res) => {
 app.listen(port, () => {
   console.log(`leetcode-stats listening at http://localhost:${port}`);
 });
+
+
+module.exports = app;

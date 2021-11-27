@@ -6,7 +6,8 @@
   "scripts": {
     "start": "supervisor -w dist ./dist/app.js",
     "build": "tsc",
-    "server": "tsc && pm2 dist/app.js"
+    "server": "tsc && pm2 dist/app.js",
+    "semantic-release": "semantic-release"
   },
   "author": "wstreet",
   "license": "ISC",
@@ -22,7 +23,13 @@
     "@vercel/node": "^1.12.1",
     "nodemon": "^2.0.12",
     "pm2": "^5.1.2",
+    "semantic-release": "^18.0.1",
     "supervisor": "^0.12.0",
     "typescript": "^4.4.2"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
-import fetcher from "../fetchers/commit-fetcher";
-import Card from "../cards/commit-card";
+import fetcher from "../src/fetchers/commit-fetcher";
+import Card from "../src/cards/commit-card";
 
 export default function (req: VercelRequest, res: VercelResponse) {
   try {

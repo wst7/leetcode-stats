@@ -13,5 +13,5 @@
     },
     "watch": false
   },
-  "include": ["src/**/*"]
+  "include": ["api/index", "utils.ts", "fetchers", "cards.ts"]
 }

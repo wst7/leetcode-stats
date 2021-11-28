@@ -6,15 +6,17 @@ import Card from "../src/cards/commit-card";
 export default function (req: VercelRequest, res: VercelResponse) {
   try {
     const { username, theme } = req.query;
+    if (!username) throw Error("Invalid username");
+
     fetcher(username as string).then((data) => {
-      console.log(data)
       const card = new Card(data, theme as any);
-      // console.log(card.render())
+      const svg = card.render();
+      console.log(svg);
       res.setHeader("Content-Type", "image/svg+xml");
       res.setHeader("Cache-Control", "s-max-age=60, stale-while-revalidate");
-      res.status(200).send(card.render());
+      res.status(200).send(svg);
     });
   } catch (error) {
-    res.status(400).send("Error");
+    res.status(400).send(error.message);
   }
 }

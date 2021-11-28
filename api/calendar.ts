@@ -9,7 +9,7 @@ export default function (req: VercelRequest, res: VercelResponse) {
     fetcher(username as string).then((data) => {
       console.log(data)
       const card = new Card(data, theme as any);
-      console.log(card)
+      console.log(card.render())
       res.setHeader("Content-Type", "image/svg+xml");
       res.setHeader("Cache-Control", "s-max-age=60, stale-while-revalidate");
       res.status(200).send(card.render());

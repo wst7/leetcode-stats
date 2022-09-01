@@ -9,9 +9,9 @@ export default function (req: VercelRequest, res: VercelResponse) {
     if (!username) throw Error("Invalid username");
 
     fetcher(username as string).then((data) => {
+      console.log(data)
       const card = new Card(data, theme as any);
       const svg = card.render();
-      console.log(svg);
       res.setHeader("Content-Type", "image/svg+xml");
       res.setHeader("Cache-Control", "s-max-age=60, stale-while-revalidate");
       res.status(200).send(svg);

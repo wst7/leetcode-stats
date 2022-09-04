@@ -85,7 +85,7 @@ class Card {
   private getCompleteData(data: Data): Data {
     const completeData = {};
     const today = new Date();
-    today.setHours(4, 0, 0, 0); // TODO: fix hours
+    today.setHours(16, 0, 0, 0); // TODO: fix hours
     const todayStamp = today.getTime() / 1000;
     for (let index = 0; index < this.days; index++) {
       const dateKey = this.getDateKey(todayStamp, index);

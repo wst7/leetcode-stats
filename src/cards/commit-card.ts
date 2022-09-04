@@ -91,7 +91,7 @@ class Card {
       const dateKey = this.getDateKey(todayStamp, index);
       completeData[dateKey] = data[dateKey] || 0;
     }
-    // console.log(JSON.stringify(completeData));
+    console.log(JSON.stringify(completeData));
     return completeData;
   }
 

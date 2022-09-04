@@ -9,6 +9,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     if (!username) throw Error("Invalid username");
 
     const data = await fetcher(username as string);
+    console.log(JSON.stringify(data));
     const card = new Card(data, theme as any);
     const svg = card.render();
     res.setHeader("Content-Type", "image/svg+xml");

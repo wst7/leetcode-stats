@@ -10,7 +10,6 @@ const fetcher = async (username: string): Promise<any> => {
     );
     if (typeof res.data === "object") return {};
     const data = JSON.parse(res.data);
-    console.log(data)
     return data;
   } catch (e) {
     console.error(e.message);

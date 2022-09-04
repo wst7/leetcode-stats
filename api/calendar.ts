@@ -9,10 +9,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     if (!username) throw Error("Invalid username");
 
     const data = await fetcher(username as string);
-    console.log(data);
     const card = new Card(data, theme as any);
-    const svg = await card.render();
-    console.log(svg);
+    const svg = card.render();
     res.setHeader("Content-Type", "image/svg+xml");
     res.setHeader("Cache-Control", "s-max-age=60, stale-while-revalidate");
     res.status(200).send(svg);

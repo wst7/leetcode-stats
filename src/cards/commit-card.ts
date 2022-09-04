@@ -39,6 +39,7 @@ class Card {
 
   private calcDays() {
     const day = dayjs().day();
+    // 52 weeks in a year
     this.days = 51 * 7 + day + 1;
   }
 
@@ -90,7 +91,7 @@ class Card {
       const dateKey = this.getDateKey(todayStamp, index);
       completeData[dateKey] = data[dateKey] || 0;
     }
-
+    console.log(JSON.stringify(completeData));
     return completeData;
   }
 

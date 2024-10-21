@@ -16,6 +16,6 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     res.setHeader("Cache-Control", "s-max-age=60, stale-while-revalidate");
     res.status(200).send(svg);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send((error as Error).message);
   }
 }

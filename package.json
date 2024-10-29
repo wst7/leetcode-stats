@@ -4,20 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "vercel dev",
+    "dev": "nodemon --exec ts-node app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
     "semantic-release": "semantic-release"
   },
   "author": "wstreet",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "dayjs": "^1.10.7"
+    "dayjs": "^1.10.7",
+    "express": "^4.21.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node": "^16.7.13",
     "@vercel/node": "^1.12.1",
+    "nodemon": "^3.1.7",
     "semantic-release": "^18.0.1",
     "supervisor": "^0.12.0",
+    "ts-node": "^10.9.2",
     "typescript": "^4.4.2",
     "vercel": "^37.11.0"
   },

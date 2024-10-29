@@ -1,9 +1,8 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
 
 import fetcher from "../src/fetchers/commit-fetcher";
 import Card from "../src/cards/commit-card";
 
-export default async function (req: VercelRequest, res: VercelResponse) {
+export default async function (req, res) {
   try {
     const { username, theme } = req.query;
     if (!username) throw Error("Invalid username");

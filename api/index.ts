@@ -1,7 +1,5 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
 
 
-
-export default function (req: VercelRequest, res: VercelResponse) {
+export default function (req, res) {
   res.send("Hello World");
 }

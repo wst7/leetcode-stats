@@ -1,7 +1,7 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import themes from "./themes";
-import { ascSort } from "../utils";
+import { ascSortDate } from "../utils";
 
 dayjs.extend(weekOfYear);
 
@@ -43,23 +43,33 @@ class Card {
     this.days = 51 * 7 + day + 1;
   }
 
+  transfer(data) {
+    const newData = {}
+    for (const key in data) {
+      const date = dayjs(Number(key) * 1000);
+      const dateKey = date.format("YYYYMMDD");
+      newData[dateKey] = data[key];
+    }
+    return newData;
+  }
+
   private setCommitsData(data: Data) {
-    const completeData = this.getCompleteData(data);
+    const completeData = this.getCompleteData(this.transfer(data));
     const stamps = Object.keys(completeData);
 
-    const sortStamps = ascSort(stamps);
+    const sortKeys = ascSortDate(stamps);
     let x = 0;
-    const commitsData = sortStamps.map((stamp, idx) => {
-      const date = dayjs(Number(stamp) * 1000);
+    const commitsData = sortKeys.map((key, idx) => {
+      const date = dayjs(key);
       const day = date.day();
 
       return {
         date: date.format("YYYY-MM-DD"),
-        commits: completeData[stamp],
+        commits: completeData[key],
         month: date.month() + 1,
         day,
         week: date.week(),
-        color: this.getColor(completeData[stamp]),
+        color: this.getColor(completeData[key]),
         x: day === 6 ? x++ : x,
         y: day,
       };
@@ -84,19 +94,16 @@ class Card {
 
   private getCompleteData(data: Data): Data {
     const completeData = {};
-    const today = new Date();
-    today.setHours(16, 0, 0, 0); // TODO: fix hours
-    const todayStamp = today.getTime() / 1000;
+    const today = dayjs();
     for (let index = 0; index < this.days; index++) {
-      const dateKey = this.getDateKey(todayStamp, index);
+      const dateKey = this.getDateKey(today, index);
       completeData[dateKey] = data[dateKey] || 0;
     }
-    // console.log(JSON.stringify(completeData));
     return completeData;
   }
 
-  private getDateKey(stamp: number, diff: number): string {
-    return (stamp - 86400 * diff).toString();
+  private getDateKey(today: Dayjs, diff: number): string {
+    return today.subtract(diff, "day").format("YYYYMMDD");
   }
 
   private renderDays() {
@@ -126,7 +133,7 @@ class Card {
 
   public render() {
     return `
-      <svg 
+      <svg
         version="1.1"
         baseProfile="full"
         width="640" height="100"

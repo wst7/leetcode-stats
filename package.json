@@ -2,12 +2,10 @@
   "name": "leetcode-stats",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node app.ts",
-    "build": "tsc",
-    "start": "node dist/app.js",
-    "semantic-release": "semantic-release"
+    "start": "vercel dev",
+    "deploy": "vercel deploy --prod"
   },
   "author": "wstreet",
   "license": "ISC",

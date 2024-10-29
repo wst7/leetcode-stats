@@ -1,5 +1,6 @@
 
+export const config = {
+  runtime: "edge",
+};
 
-export default function (req, res) {
-  res.send("Hello World");
-}
+export default (req) => new Response('Hello world!')

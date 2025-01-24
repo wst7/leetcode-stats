@@ -28,8 +28,10 @@ class Card {
   private unit = 12;
   private offsetX = 8;
   private offsetY = 8;
+  private username: string;
 
-  constructor(data: Data, theme: Themes) {
+  constructor(data: Data, theme: Themes, username: string) {
+    this.username = username;
     if (theme) {
       this.setTheme(theme);
     }
@@ -132,17 +134,40 @@ class Card {
   }
 
   public render() {
+    const theme = themes[this.theme];
     return `
       <svg
         version="1.1"
         baseProfile="full"
-        width="640" height="100"
+        width="640" height="140"
         xmlns="http://www.w3.org/2000/svg"
-        style="${`border:1px solid #d0d7de;background:${
-          themes[this.theme].bg
-        }; border-radius:4px`}"
       >
-        <g style="text-align:center">${this.renderDays()}</g>
+        <rect
+          x="0" y="0"
+          width="100%" height="100%"
+          rx="4"
+          ry="4"
+          fill="${theme.bg}"
+        ></rect>
+
+        <style>
+          .card-title-wrapper {
+            transform: translate(16px, 26px);
+          }
+          .card-title {
+            font-size: 16px;
+            fill: ${theme.title};
+          }
+          .card-body {
+            transform: translate(0, 36px);
+          }
+        </style>
+        <g class="card-title-wrapper">
+          <text class="card-title">
+            ${this.username}'s leetcode calendar
+          </text>
+        </g>
+        <g class="card-body">${this.renderDays()}</g>
       </svg>
     `;
   }

@@ -1,5 +1,23 @@
 # leetcode-stats
 
-Get dynamically generated leetcode stats on your READMEs!
+Generated leetcode stats on your README!
 
-[![Wstreet's Leetcode Commits](https://leetcode-stats-40rrjlgpx-wstreets-projects.vercel.app/api)](https://github.com/wstreet/leetcode-stats)
+## Apis
+
+### Calendar
+```
+https://api-leetcode-stats.vercel.app/api/calendar?username=<username>&theme=<theme>
+```
+#### Parameters
+- `username` : Your leetcode username
+- `theme` : `light` or `dark`
+- `version` : `cn` or `com`, now only support `cn`
+
+#### Example
+```md
+[![Your Leetcode Stats](https://api-leetcode-stats.vercel.app/api/calendar?username=streetd&theme=dark)](https://github.com/wst7/leetcode-stats)
+```
+
+[![Wstreet's Leetcode Commits](https://api-leetcode-stats.vercel.app/api/calendar?username=streetd&theme=dark)](https://github.com/wst7/leetcode-stats)
+
+

@@ -14,7 +14,7 @@ export default async function (req) {
 
     const data = await fetcher(username as string);
 
-    const card = new CommitCard(data, theme as any);
+    const card = new CommitCard(data, theme as any, username);
     const svg = card.render();
     return new Response(svg, {
       headers: {

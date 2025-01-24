@@ -11,7 +11,7 @@ https://api-leetcode-stats.vercel.app/api/calendar?username=<username>&theme=<th
 #### Parameters
 - `username` : Your leetcode username
 - `theme` : `light` or `dark`
-- `version` : `cn` or `com`, now only support `cn`
+- `version` : `cn` for [leetcode.cn](https://leetcode.cn/) or `com` for [leetcode.com](https://leetcode.com/), now only support `cn`
 
 #### Example
 ```md

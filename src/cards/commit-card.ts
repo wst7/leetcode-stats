@@ -148,6 +148,8 @@ class Card {
           rx="4"
           ry="4"
           fill="${theme.bg}"
+          stroke="${theme.bd}"
+          stroke-width="1"
         ></rect>
 
         <style>
